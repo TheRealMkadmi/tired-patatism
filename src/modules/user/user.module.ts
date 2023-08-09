@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersService } from '@user/user.service';
 import { User, UserSchema } from '@user/user.schema';
 import { UsersController } from '@user/user.controller';
-import { AutomapperModule } from "@automapper/nestjs";
+import { AutomapperModule } from "@timonmasberg/automapper-nestjs";
 
 @Module({
   imports: [

@@ -17,7 +17,7 @@ import { InjectMapper } from "@timonmasberg/automapper-nestjs";
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    @InjectMapper("user") private classMapper: Mapper,
+    @InjectMapper() private classMapper: Mapper,
   ) {}
 
   @Post()
