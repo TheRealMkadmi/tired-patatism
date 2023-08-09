@@ -8,5 +8,6 @@ import {Document} from "mongoose";
 })
 export class FormBuilder extends Document {
     declare _id: string;
+
 }
 export const FormBuilderSchema = SchemaFactory.createForClass(FormBuilder);
