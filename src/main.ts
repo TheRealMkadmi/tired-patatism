@@ -23,10 +23,6 @@ async function bootstrap() {
         }),
         {
             yamlDocumentUrl: '/yaml',
-            jsonDocumentUrl: '/json',
-            swaggerOptions: {
-                persistAuthorization: true,
-            },
         },
     );
 
