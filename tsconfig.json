@@ -36,6 +36,12 @@
       ],
       "@user/*": [
         "src/modules/user/*"
+      ],
+      "@/form-builder/*": [
+        "src/modules/form-builder/*"
+      ],
+      "@/form-submissions/*": [
+        "src/modules/form-submissions/*"
       ]
     }
   },
