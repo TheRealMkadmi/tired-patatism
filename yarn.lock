@@ -81,11 +81,6 @@
   resolved "https://registry.yarnpkg.com/@automapper/core/-/core-8.7.7.tgz#b48dd0260d188e6036fafd7ac03727d9295175ab"
   integrity sha512-YfpDJ/xqwUuC0S+BLNk81ZJfeL7CmjirUX/Gk9eQyx146DKvneBZgeZ9v5rDB51Ti14jTxVHis+5JuT7W/q0TA==
 
-"@automapper/nestjs@^8.7.7":
-  version "8.7.7"
-  resolved "https://registry.yarnpkg.com/@automapper/nestjs/-/nestjs-8.7.7.tgz#797bca292f86e7b44530939f359aa8374b47629d"
-  integrity sha512-9/uYY2cmN7SJjr2QxnfyXsteHrn/RHD+Dg0VMBflzK/e8Bh/KWyOve7+kaFixlUoyHe44aXs2LVaCslqt8wnhQ==
-
 "@automapper/types@^6.3.1":
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/@automapper/types/-/types-6.3.1.tgz#cd40423142d7fe1bb9f18274ca0e2b2b7e26e807"
@@ -953,6 +948,11 @@
   integrity sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==
   dependencies:
     defer-to-connect "^2.0.0"
+
+"@timonmasberg/automapper-nestjs@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@timonmasberg/automapper-nestjs/-/automapper-nestjs-0.0.0.tgz#6ed48b72f32808d78ade7e26a5785f4551b01f1b"
+  integrity sha512-4DcUq8L0ffVTje5YsiBGTxMK9y/4eKEforEjJtS0FHcgxmm490SjPKRXYKhEMw0jTQxWHhWdXjp5YcqJ1OpSKA==
 
 "@tokenizer/token@^0.3.0":
   version "0.3.0"
