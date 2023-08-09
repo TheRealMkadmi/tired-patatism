@@ -12,7 +12,6 @@ import {
   QueryOptions,
   UpdateQuery,
 } from 'mongoose';
-import { plainToClass } from 'class-transformer';
 import 'reflect-metadata';
 
 export class BaseService<T extends Document> {
