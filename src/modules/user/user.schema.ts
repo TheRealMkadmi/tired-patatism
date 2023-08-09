@@ -1,6 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 import { Factory } from 'nestjs-seeder';
+import { AutoMap } from '@automapper/classes';
+
+mongoose.set('strictQuery', true); // placed here for the lack of a better place, for now.
 
 @Schema({
   timestamps: true,
@@ -11,15 +14,18 @@ export class User extends Document {
   declare _id: string;
 
   @Factory((faker) => `${faker?.person.firstName()}`)
-  @Prop({type: String})
+  @Prop({ type: String })
+  @AutoMap()
   firstName: string;
 
   @Factory((faker) => `${faker?.person.lastName()}`)
-  @Prop({type: String})
+  @Prop({ type: String })
+  @AutoMap()
   lastName: string;
 
   @Factory((faker) => `${faker?.internet.email()}`)
-  @Prop({type: String})
+  @Prop({ type: String })
+  @AutoMap()
   email: string;
 
   @Factory(() => {
@@ -27,7 +33,8 @@ export class User extends Document {
     const maxAge = 30;
     return Math.round(Math.random() * (maxAge - minAge) + minAge);
   })
-  @Prop({type: Number})
+  @Prop({ type: Number })
+  @AutoMap()
   age: number;
 
   declare createdAt: Date;

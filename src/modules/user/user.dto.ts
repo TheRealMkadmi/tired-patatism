@@ -11,8 +11,5 @@ export class UserDto {
   lastName: string;
 
   @AutoMap()
-  email: string;
-
-  @AutoMap()
   age: number;
 }
