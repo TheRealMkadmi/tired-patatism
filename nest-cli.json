@@ -12,7 +12,7 @@
       "options": {
         "dtoFileNameSuffix": [
           ".dto.ts",
-          ".schema.ts"
+          ".entity.ts"
         ],
         "controllerFileNameSuffix": [
           ".controller.ts"

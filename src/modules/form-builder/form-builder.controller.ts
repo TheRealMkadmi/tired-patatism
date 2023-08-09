@@ -6,7 +6,7 @@ import {FormBuilder} from "@/form-builder/entities/form-builder.entity";
 
 @Controller('form-builder')
 export class FormBuilderController {
-  constructor(private readonly formBuilderService: FormBuilderService) {}
+  constructor(private readonly formBuilderService: FormBuilderService,) {}
 
   @Post()
   create(@Body() createFormBuilderDto: CreateFormBuilderDto): Promise<FormBuilder> {
