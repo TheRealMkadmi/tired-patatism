@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersService } from '@user/user.service';
+import { UserService } from '@user/user.service';
 import { User, UserSchema } from '@user/user.schema';
 import { UsersController } from '@user/user.controller';
 import { AutomapperModule } from "@timonmasberg/automapper-nestjs";
@@ -10,7 +10,8 @@ import { AutomapperModule } from "@timonmasberg/automapper-nestjs";
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     AutomapperModule,
   ],
-  providers: [UsersService],
+  providers: [UserService],
   controllers: [UsersController],
+  exports: [UserService],
 })
 export class UserModule {}

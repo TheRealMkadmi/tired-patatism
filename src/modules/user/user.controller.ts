@@ -7,7 +7,7 @@ import {
   Param,
   Delete
 } from "@nestjs/common";
-import { UsersService } from '@user/user.service';
+import { UserService } from '@user/user.service';
 import { UserDto } from '@user/user.dto';
 import { User } from '@user/user.schema';
 import { Mapper } from '@automapper/core';
@@ -16,7 +16,7 @@ import { InjectMapper } from "@timonmasberg/automapper-nestjs";
 @Controller('users')
 export class UsersController {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
     @InjectMapper() private classMapper: Mapper,
   ) {}
 
