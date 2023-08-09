@@ -3,6 +3,7 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { ObjectId as BsonObjectId } from 'bson';
 import { UpdateResult } from 'mongodb';
 import {
+  ClientSession,
   Document,
   FilterQuery,
   HydratedDocument,
@@ -144,9 +145,20 @@ export class BaseService<T extends Document> {
     }
   }
 
-  async toDto<K extends keyof T>(data: T): Promise<Pick<T, K>> {
-    return plainToClass(this.model, data.toObject(), {
-      excludeExtraneousValues: true,
-    });
+  async withTransaction<T>(
+    work: (session: ClientSession) => Promise<T>,
+  ): Promise<T> {
+    const session = await this.model.db.startSession();
+    session.startTransaction();
+    try {
+      const result = await work(session);
+      await session.commitTransaction();
+      return result;
+    } catch (error) {
+      await session.abortTransaction();
+      throw error;
+    } finally {
+      await session.endSession();
+    }
   }
 }

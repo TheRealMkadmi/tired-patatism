@@ -54,4 +54,9 @@ export class UsersController {
   async remove(@Param('id') id: string): Promise<void> {
     await this.usersService.deleteById(id);
   }
+
+  @Post('/create-two-with-same-email')
+  async createTwoUsersWithSameEmail(@Body() userDetails: Partial<User>): Promise<User[]> {
+    return this.usersService.createTwoUsersWithSameEmail(userDetails);
+  }
 }
