@@ -1,26 +1,26 @@
-import { Injectable } from '@nestjs/common';
-import { CreateFormBuilderDto } from './dto/create-form-builder.dto';
-import { UpdateFormBuilderDto } from './dto/update-form-builder.dto';
+import {BadRequestException, Injectable} from '@nestjs/common';
+import {BaseService} from "@common/services/BaseService";
+import {FormBuilder} from "@/form-builder/entities/form-builder.entity";
+import {Model} from "mongoose";
+import {UpdateFormSubmissionDto} from "@/form-submissions/dto/update-form-submission.dto";
+import {FormSubmission} from "@/form-submissions/entities/form-submission.entity";
+import {InjectModel} from "@nestjs/mongoose";
 
 @Injectable()
-export class FormBuilderService {
-  create(createFormBuilderDto: CreateFormBuilderDto) {
-    return 'This action adds a new formBuilder';
+export class FormBuilderService extends BaseService<FormBuilder>{
+  constructor(
+      @InjectModel(FormBuilder.name) private readonly formBuilderModel: Model<FormBuilder>
+  ) {
+    super(formBuilderModel);
   }
 
-  findAll() {
-    return `This action returns all formBuilder`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} formBuilder`;
-  }
-
-  update(id: number, updateFormBuilderDto: UpdateFormBuilderDto) {
-    return `This action updates a #${id} formBuilder`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} formBuilder`;
+  // @ts-ignore
+  async updateById(id: string, updateFormSubmissionDto: UpdateFormSubmissionDto): Promise<FormSubmission> {
+    // Validation
+    if(1 === 1) {
+      return super.updateById(id, updateFormSubmissionDto);
+    } else {
+      throw new BadRequestException('You done goofed');
+    }
   }
 }
