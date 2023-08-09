@@ -37,6 +37,7 @@
     "nestjs-zod": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "ts-migrate-mongoose": "^3.3.0",
     "yargs": "^17.7.2",
     "zod": "^3.21.4"
   },

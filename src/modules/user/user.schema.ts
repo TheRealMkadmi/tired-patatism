@@ -11,15 +11,15 @@ export class User extends Document {
   declare _id: string;
 
   @Factory((faker) => `${faker?.person.firstName()}`)
-  @Prop()
+  @Prop({type: String})
   firstName: string;
 
   @Factory((faker) => `${faker?.person.lastName()}`)
-  @Prop()
+  @Prop({type: String})
   lastName: string;
 
   @Factory((faker) => `${faker?.internet.email()}`)
-  @Prop()
+  @Prop({type: String})
   email: string;
 
   @Factory(() => {
@@ -27,7 +27,7 @@ export class User extends Document {
     const maxAge = 30;
     return Math.round(Math.random() * (maxAge - minAge) + minAge);
   })
-  @Prop()
+  @Prop({type: Number})
   age: number;
 
   declare createdAt: Date;
