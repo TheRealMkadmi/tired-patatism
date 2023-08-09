@@ -1,4 +1,4 @@
-import {Schema, SchemaFactory} from "@nestjs/mongoose";
+import { Schema, SchemaFactory } from "@nestjs/mongoose";
 import {Document} from "mongoose";
 
 @Schema({
@@ -10,6 +10,4 @@ export class FormSubmission extends Document {
     declare _id: string;
 }
 
-
-export const FormSubmissionSchema =
-    SchemaFactory.createForClass(FormSubmission);
+export const FormSubmissionSchema = SchemaFactory.createForClass(FormSubmission);
