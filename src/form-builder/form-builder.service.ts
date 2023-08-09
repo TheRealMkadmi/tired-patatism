@@ -14,8 +14,7 @@ export class FormBuilderService extends BaseService<FormBuilder>{
     super(formBuilderModel);
   }
 
-  // @ts-ignore
-  async updateById(id: string, updateFormSubmissionDto: UpdateFormSubmissionDto): Promise<FormSubmission> {
+  async validateLogicAndUpdate(id: string, updateFormSubmissionDto: UpdateFormSubmissionDto): Promise<FormSubmission> {
     // Validation
     if(1 === 1) {
       return super.updateById(id, updateFormSubmissionDto);

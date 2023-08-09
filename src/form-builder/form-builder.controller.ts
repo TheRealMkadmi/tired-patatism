@@ -25,7 +25,7 @@ export class FormBuilderController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFormBuilderDto: UpdateFormBuilderDto): Promise<FormBuilder> {
-    return this.formBuilderService.updateById(id, updateFormBuilderDto);
+    return this.formBuilderService.validateLogicAndUpdate(id, updateFormBuilderDto);
   }
 
   @Delete(':id')
