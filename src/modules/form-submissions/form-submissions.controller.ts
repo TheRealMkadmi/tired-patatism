@@ -14,25 +14,25 @@ export class FormSubmissionsController {
 
   @ApiBody({ type: CreateFormSubmissionDto })
   @Post()
-  create(
+  createFormSubmission(
     @Body() createFormSubmissionDto: CreateFormSubmissionDto,
   ): Promise<FormSubmission> {
     return this.formSubmissionsService.create(createFormSubmissionDto);
   }
 
   @Get()
-  findAll(): Promise<FormSubmission[]> {
+  findAllFormSubmissions(): Promise<FormSubmission[]> {
     return this.formSubmissionsService.find();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<FormSubmission> {
+  findFormSubmissionById(@Param('id') id: string): Promise<FormSubmission> {
     return this.formSubmissionsService.findById(id);
   }
 
   @ApiBody({ type: UpdateFormSubmissionDto })
   @Patch(':id')
-  update(
+  updateFormSubmission(
     @Param('id') id: string,
     @Body() updateFormSubmissionDto: UpdateFormSubmissionDto,
   ): Promise<FormSubmission> {
@@ -40,7 +40,7 @@ export class FormSubmissionsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<DeleteResultDto> {
+  removeFormSubmission(@Param('id') id: string): Promise<DeleteResultDto> {
     return this.formSubmissionsService.deleteById(id);
   }
 }

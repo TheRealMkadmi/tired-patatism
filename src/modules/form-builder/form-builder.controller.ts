@@ -12,25 +12,25 @@ export class FormBuilderController {
 
   @ApiBody({ type: CreateFormBuilderDto })
   @Post()
-  create(
+  createForm(
     @Body() createFormBuilderDto: CreateFormBuilderDto,
   ): Promise<FormBuilder> {
     return this.formBuilderService.create(createFormBuilderDto);
   }
 
   @Get()
-  findAll(): Promise<FormBuilder[]> {
+  findAllForms(): Promise<FormBuilder[]> {
     return this.formBuilderService.find();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<FormBuilder> {
+  findFormById(@Param('id') id: string): Promise<FormBuilder> {
     return this.formBuilderService.findById(id);
   }
 
   @ApiBody({ type: UpdateFormBuilderDto })
   @Patch(':id')
-  update(
+  updateForm(
     @Param('id') id: string,
     @Body() updateFormBuilderDto: UpdateFormBuilderDto,
   ): Promise<FormBuilder> {
@@ -41,7 +41,7 @@ export class FormBuilderController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<DeleteResultDto> {
+  removeForm(@Param('id') id: string): Promise<DeleteResultDto> {
     return this.formBuilderService.deleteById(id);
   }
 }
