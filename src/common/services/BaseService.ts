@@ -138,7 +138,7 @@ export class BaseService<T extends Document> {
 
   deleteById(id: string | ObjectId | BsonObjectId) {
     try {
-      return this.model.findByIdAndDelete(id).orFail().exec();
+      return this.model.deleteOne({_id: id}).orFail().exec();
     } catch (e) {
       throw new BadRequestException(e.message);
     }

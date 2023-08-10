@@ -4,6 +4,7 @@ import { CreateFormSubmissionDto } from './dto/create-form-submission.dto';
 import { UpdateFormSubmissionDto } from './dto/update-form-submission.dto';
 import {FormSubmission} from "@/form-submissions/entities/form-submission.entity";
 import { ApiBody } from '@nestjs/swagger';
+import {DeleteResultDto} from "@common/dtos/delete-result.dto";
 
 @Controller('form-submissions')
 export class FormSubmissionsController {
@@ -39,7 +40,7 @@ export class FormSubmissionsController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<DeleteResultDto> {
     return this.formSubmissionsService.deleteById(id);
   }
 }

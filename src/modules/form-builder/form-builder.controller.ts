@@ -4,6 +4,7 @@ import {CreateFormBuilderDto} from './dto/create-form-builder.dto';
 import {UpdateFormBuilderDto} from './dto/update-form-builder.dto';
 import {FormBuilder} from "@/form-builder/entities/form-builder.entity";
 import { ApiBody } from '@nestjs/swagger';
+import {DeleteResultDto} from "@common/dtos/delete-result.dto";
 
 @Controller('form-builder')
 export class FormBuilderController {
@@ -40,7 +41,7 @@ export class FormBuilderController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: string): Promise<DeleteResultDto> {
     return this.formBuilderService.deleteById(id);
   }
 }
