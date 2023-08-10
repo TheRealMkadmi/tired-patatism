@@ -1,7 +1,7 @@
 import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 import {Document, Types} from "mongoose";
 
-enum ComponentType {
+export enum ComponentType {
     TEXT = 'text',
     EMAIL = 'email',
     PASSWORD = 'password',
