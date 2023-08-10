@@ -1,1 +1,7 @@
-export class CreateFormSubmissionDto {}
+export class SubmissionField {
+    key: string;
+    value: string;
+}
+export class CreateFormSubmissionDto {
+    submissionFields: SubmissionField[];
+}
