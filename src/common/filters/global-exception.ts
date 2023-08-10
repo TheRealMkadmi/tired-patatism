@@ -1,16 +1,19 @@
 import {
   ArgumentsHost,
   Catch,
-  ConsoleLogger,
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Inject,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
-  constructor(private readonly logger: ConsoleLogger) {}
+  constructor(
+    @Inject(EventEmitter2) private readonly eventEmitter: EventEmitter2,
+  ) {}
 
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -25,9 +28,8 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message = exception.message;
     }
 
-    if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
-      this.logger.error('http-error-handler', exception as Error);
-    }
+    // Emit the exception event
+    this.eventEmitter.emit('exception.throw', { exception, request });
 
     return response.status(status).json({
       statusCode: status,

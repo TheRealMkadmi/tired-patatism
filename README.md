@@ -15,7 +15,8 @@ yarn run seed:refresh
 `mongoose.set('strictQuery', true);` is inside the schema for now, ideally, while defining the db module, but this is a micro project, so it's fine.
 
 ## Logging
-`ErrorHandlerMiddleware` in `middleware` directory.
+`GlobalExceptionFilter` in `common/filters` directory.
+Sends stuff to `common/loggers/ExceptionLoggerService`.
 
 
 ## Transaction: 
