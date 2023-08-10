@@ -5,19 +5,28 @@ import { UpdateFormSubmissionDto } from './dto/update-form-submission.dto';
 import {FormSubmission} from "@/form-submissions/entities/form-submission.entity";
 import { ApiBody } from '@nestjs/swagger';
 import {DeleteResultDto} from "@common/dtos/delete-result.dto";
+import {FormEventsService} from "@common/services/form-events-service";
+import {FormSubmissionEventType} from "@/form-builder/constants/form-builder-enums.";
 
 @Controller('form-submissions')
 export class FormSubmissionsController {
   constructor(
     private readonly formSubmissionsService: FormSubmissionsService,
+    private readonly formEventsService: FormEventsService,
   ) {}
 
-  @ApiBody({ type: CreateFormSubmissionDto })
+  @ApiBody({type: CreateFormSubmissionDto})
   @Post()
-  createFormSubmission(
-    @Body() createFormSubmissionDto: CreateFormSubmissionDto,
+  async createFormSubmission(
+      @Body() createFormSubmissionDto: CreateFormSubmissionDto,
   ): Promise<FormSubmission> {
-    return this.formSubmissionsService.create(createFormSubmissionDto);
+    const submission = await this.formSubmissionsService.create(createFormSubmissionDto);
+    if(submission) {
+      this.formEventsService.emitFormEvent({
+        _form: submission._form,
+      }, FormSubmissionEventType.ANSWERED);
+    }
+    return submission;
   }
 
   @Get('/all')

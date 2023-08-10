@@ -1,21 +1,44 @@
-import {Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
-import {FormBuilderService} from './form-builder.service';
-import {CreateFormBuilderDto} from './dto/create-form-builder.dto';
-import {UpdateFormBuilderDto} from './dto/update-form-builder.dto';
-import {FormBuilder} from "@/form-builder/entities/form-builder.entity";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  MessageEvent,
+  Param,
+  Patch,
+  Post,
+  Sse,
+} from '@nestjs/common';
+import { FormBuilderService } from './form-builder.service';
+import { CreateFormBuilderDto } from './dto/create-form-builder.dto';
+import { UpdateFormBuilderDto } from './dto/update-form-builder.dto';
+import { FormBuilder } from '@/form-builder/entities/form-builder.entity';
 import { ApiBody } from '@nestjs/swagger';
-import {DeleteResultDto} from "@common/dtos/delete-result.dto";
+import { DeleteResultDto } from '@common/dtos/delete-result.dto';
+import { map, Observable } from 'rxjs';
+import { FormEventsService } from '@common/services/form-events-service';
+import { FormSubmissionEventType } from '@/form-builder/constants/form-builder-enums.';
 
 @Controller('form-builder')
 export class FormBuilderController {
-  constructor(private readonly formBuilderService: FormBuilderService) {}
+  constructor(
+    private readonly formBuilderService: FormBuilderService,
+    private readonly formEventsService: FormEventsService,
+  ) {}
 
   @ApiBody({ type: CreateFormBuilderDto })
   @Post()
-  createForm(
+  async createForm(
     @Body() createFormBuilderDto: CreateFormBuilderDto,
   ): Promise<FormBuilder> {
-    return this.formBuilderService.create(createFormBuilderDto);
+    const form = await this.formBuilderService.create(createFormBuilderDto);
+    this.formEventsService.emitFormEvent(
+      {
+        _form: form._id,
+      },
+      FormSubmissionEventType.CREATED,
+    );
+    return form;
   }
 
   @Get()
@@ -30,18 +53,50 @@ export class FormBuilderController {
 
   @ApiBody({ type: UpdateFormBuilderDto })
   @Patch(':id')
-  updateForm(
+  async updateForm(
     @Param('id') id: string,
     @Body() updateFormBuilderDto: UpdateFormBuilderDto,
   ): Promise<FormBuilder> {
-    return this.formBuilderService.validateLogicAndUpdate(
+    const update = await this.formBuilderService.validateLogicAndUpdate(
       id,
       updateFormBuilderDto,
     );
+    this.formEventsService.emitFormEvent(
+      {
+        _form: update._id,
+      },
+      FormSubmissionEventType.UPDATED,
+    );
+    return update;
   }
 
   @Delete(':id')
-  removeForm(@Param('id') id: string): Promise<DeleteResultDto> {
-    return this.formBuilderService.deleteById(id);
+  async removeForm(@Param('id') id: string): Promise<DeleteResultDto> {
+    const result = await this.formBuilderService.deleteById(id);
+    if (result.acknowledged) {
+      this.formEventsService.emitFormEvent(
+        {
+          _form: id,
+        },
+        FormSubmissionEventType.DELETED,
+      );
+    }
+    return result;
+  }
+
+  @Sse('/sse')
+  sse(): Observable<MessageEvent> {
+    return this.formEventsService.subject$.pipe(
+      map((event) => ({
+        data: event.data,
+        type: event.type,
+        id: event.data._form?.toString(),
+      })),
+    );
+  }
+
+  @Sse('/sse2')
+  sse2(): Observable<MessageEvent> {
+    return this.formEventsService.source();
   }
 }

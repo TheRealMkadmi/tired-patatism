@@ -10,3 +10,10 @@ export enum ComponentType {
     TEXTAREA = 'textarea',
     FILE = 'file',
 }
+
+export enum FormSubmissionEventType {
+    CREATED = 'created',
+    UPDATED = 'updated',
+    DELETED = 'deleted',
+    ANSWERED = 'answered',
+}
