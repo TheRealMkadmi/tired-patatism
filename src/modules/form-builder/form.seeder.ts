@@ -1,8 +1,9 @@
-import { ComponentType, FormBuilder } from '@/form-builder/entities/form-builder.entity';
+import {  FormBuilder } from '@/form-builder/entities/form-builder.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { faker } from '@faker-js/faker';
+import { ComponentType } from '../../../src/modules/form-builder/constants/form-builder-enums.';
 
 @Injectable()
 export class FormBuilderSeeder {
