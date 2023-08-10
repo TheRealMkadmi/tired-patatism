@@ -15,7 +15,7 @@ export class FormBuilderSeeder {
     async seed(): Promise<any> {
         // Generate components for the formBuilder
         const generateComponents = (): any[] => {
-            const count = faker.datatype.number({ min: 1, max: 10, precision: 1 });
+            const count = faker.number.int(10)
             const components: any[] = [];
             for (let i = 0; i < count; i++) {
                 components.push({

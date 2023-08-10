@@ -8,17 +8,15 @@ import { FormBuilder, FormBuilderSchema } from './modules/form-builder/entities/
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
 
-seeder({
-  imports: [
-    MongooseModule.forRoot(process.env.MONGO_URI!),
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+// DRY DRY DRY 
+function seedModel(modelName: string, modelSchema: any, modelSeeder: any) {
+  seeder({
+    imports: [
+      MongooseModule.forRoot(process.env.MONGO_URI!),
+      MongooseModule.forFeature([{ name: modelName, schema: modelSchema }]),
+    ],
+  }).run([modelSeeder]);
+}
 
-  ],
-}).run([UserSeeder]);
-
-seeder({
-  imports: [
-    MongooseModule.forRoot(process.env.MONGO_URI!),
-    MongooseModule.forFeature([{ name: FormBuilder.name, schema: FormBuilderSchema }]),
-  ],
-}).run([FormBuilderSeeder]);
+seedModel(User.name, UserSchema, UserSeeder);
+seedModel(FormBuilder.name, FormBuilderSchema, FormBuilderSeeder);
