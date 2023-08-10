@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {ConsoleLogger, Module} from '@nestjs/common';
 import { UserModule } from '@user/user.module';
 import { classes } from '@automapper/classes';
 import { MongooseModule } from "@nestjs/mongoose";
@@ -24,6 +24,7 @@ require('dotenv').config()
   ],
   controllers: [],
   providers: [
+    ConsoleLogger,
     {
       provide: APP_FILTER,
       useClass: GlobalExceptionFilter,
