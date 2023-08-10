@@ -3,13 +3,19 @@ import { FormSubmissionsService } from './form-submissions.service';
 import { CreateFormSubmissionDto } from './dto/create-form-submission.dto';
 import { UpdateFormSubmissionDto } from './dto/update-form-submission.dto';
 import {FormSubmission} from "@/form-submissions/entities/form-submission.entity";
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('form-submissions')
 export class FormSubmissionsController {
-  constructor(private readonly formSubmissionsService: FormSubmissionsService) {}
+  constructor(
+    private readonly formSubmissionsService: FormSubmissionsService,
+  ) {}
 
+  @ApiBody({ type: CreateFormSubmissionDto })
   @Post()
-  create(@Body() createFormSubmissionDto: CreateFormSubmissionDto): Promise<FormSubmission> {
+  create(
+    @Body() createFormSubmissionDto: CreateFormSubmissionDto,
+  ): Promise<FormSubmission> {
     return this.formSubmissionsService.create(createFormSubmissionDto);
   }
 
@@ -23,8 +29,12 @@ export class FormSubmissionsController {
     return this.formSubmissionsService.findById(id);
   }
 
+  @ApiBody({ type: UpdateFormSubmissionDto })
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFormSubmissionDto: UpdateFormSubmissionDto): Promise<FormSubmission> {
+  update(
+    @Param('id') id: string,
+    @Body() updateFormSubmissionDto: UpdateFormSubmissionDto,
+  ): Promise<FormSubmission> {
     return this.formSubmissionsService.updateById(id, updateFormSubmissionDto);
   }
 
