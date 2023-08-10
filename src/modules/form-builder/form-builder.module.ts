@@ -4,7 +4,7 @@ import { FormBuilderController } from './form-builder.controller';
 import { MongooseModule } from "@nestjs/mongoose";
 import { FormBuilder, FormBuilderSchema } from "@/form-builder/entities/form-builder.entity";
 import { FormSubmission, FormSubmissionSchema } from "@/form-submissions/entities/form-submission.entity";
-import {FormEventsService} from "@common/services/form-events-service";
+import {FormEventsModule} from "@/modules/events/form-events.module";
 
 @Module({
   imports: [
@@ -12,8 +12,9 @@ import {FormEventsService} from "@common/services/form-events-service";
       { name: FormBuilder.name, schema: FormBuilderSchema },
       { name: FormSubmission.name, schema: FormSubmissionSchema }
     ]),
+      FormEventsModule
   ],
   controllers: [FormBuilderController],
-  providers: [FormBuilderService, FormEventsService],
+  providers: [FormBuilderService],
 })
 export class FormBuilderModule {}

@@ -3,11 +3,9 @@ import {
   Controller,
   Delete,
   Get,
-  MessageEvent,
   Param,
   Patch,
   Post,
-  Sse,
 } from '@nestjs/common';
 import { FormBuilderService } from './form-builder.service';
 import { CreateFormBuilderDto } from './dto/create-form-builder.dto';
@@ -15,8 +13,7 @@ import { UpdateFormBuilderDto } from './dto/update-form-builder.dto';
 import { FormBuilder } from '@/form-builder/entities/form-builder.entity';
 import { ApiBody } from '@nestjs/swagger';
 import { DeleteResultDto } from '@common/dtos/delete-result.dto';
-import { map, Observable } from 'rxjs';
-import { FormEventsService } from '@common/services/form-events-service';
+import { FormEventsService } from '@/modules/events/form-events.service';
 import { FormSubmissionEventType } from '@/form-builder/constants/form-builder-enums.';
 
 @Controller('form-builder')
@@ -46,7 +43,7 @@ export class FormBuilderController {
     return this.formBuilderService.find();
   }
 
-  @Get(':id')
+  @Get('/by-id/:id')
   findFormById(@Param('id') id: string): Promise<FormBuilder> {
     return this.formBuilderService.findById(id);
   }
@@ -82,21 +79,5 @@ export class FormBuilderController {
       );
     }
     return result;
-  }
-
-  @Sse('/sse')
-  sse(): Observable<MessageEvent> {
-    return this.formEventsService.subject$.pipe(
-      map((event) => ({
-        data: event.data,
-        type: event.type,
-        id: event.data._form?.toString(),
-      })),
-    );
-  }
-
-  @Sse('/sse2')
-  sse2(): Observable<MessageEvent> {
-    return this.formEventsService.source();
   }
 }

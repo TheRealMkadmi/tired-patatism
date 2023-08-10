@@ -5,7 +5,7 @@ import { UpdateFormSubmissionDto } from './dto/update-form-submission.dto';
 import {FormSubmission} from "@/form-submissions/entities/form-submission.entity";
 import { ApiBody } from '@nestjs/swagger';
 import {DeleteResultDto} from "@common/dtos/delete-result.dto";
-import {FormEventsService} from "@common/services/form-events-service";
+import {FormEventsService} from "@/modules/events/form-events.service";
 import {FormSubmissionEventType} from "@/form-builder/constants/form-builder-enums.";
 
 @Controller('form-submissions')
