@@ -1,5 +1,7 @@
 import mongoose, { model, Model } from "mongoose";
 import { User, UserSchema } from "./src/modules/user/user.schema";
+import { FormBuilder, FormBuilderSchema } from "./src/modules/form-builder/entities/form-builder.entity";
+import { FormSubmission, FormSubmissionSchema } from "./src/modules/form-submissions/entities/form-submission.entity";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 require('dotenv').config();
@@ -23,6 +25,8 @@ export async function getModels(){
 
   return {
     User: model(User.name, UserSchema) as Model<User>,
+    FormBuilder: model(FormBuilder.name, FormBuilderSchema) as Model<FormBuilder>,
+    FormBuilderSubmission: model(FormSubmission.name, FormSubmissionSchema) as Model<FormSubmission>
   };
 }
 
