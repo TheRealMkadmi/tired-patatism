@@ -2,9 +2,9 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { BaseService } from '@common/services/BaseService';
 import { FormBuilder } from '@/form-builder/entities/form-builder.entity';
 import { Model } from 'mongoose';
-import { UpdateFormSubmissionDto } from '@/form-submissions/dto/update-form-submission.dto';
 import { FormSubmission } from '@/form-submissions/entities/form-submission.entity';
 import { InjectModel } from '@nestjs/mongoose';
+import { UpdateFormBuilderDto } from '@/form-builder/dto/update-form-builder.dto';
 
 @Injectable()
 export class FormBuilderService extends BaseService<FormBuilder> {
@@ -19,7 +19,7 @@ export class FormBuilderService extends BaseService<FormBuilder> {
 
   async validateLogicAndUpdate(
     id: string,
-    updateFormSubmissionDto: UpdateFormSubmissionDto,
+    updateFormSubmissionDto: UpdateFormBuilderDto,
   ): Promise<FormBuilder> {
     // if the form have some answers, it can't be updated the old values only you can add new values
     // it make sense in my stupid mind

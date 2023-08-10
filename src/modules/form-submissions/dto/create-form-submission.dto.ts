@@ -4,4 +4,5 @@ export class SubmissionField {
 }
 export class CreateFormSubmissionDto {
     submissionFields: SubmissionField[];
+    _form: string;
 }
