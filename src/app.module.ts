@@ -15,7 +15,9 @@ config()
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGO_URI!),
+    MongooseModule.forRoot(process.env.MONGO_URI!, {
+      autoIndex: true,
+    }),
     AutomapperModule.forRoot({
       strategyInitializer: classes(),
     }),

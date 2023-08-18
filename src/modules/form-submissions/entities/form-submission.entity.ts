@@ -10,6 +10,7 @@ import { SubmissionField } from '@/form-submissions/entities/submission-field';
 })
 export class FormSubmission extends Document {
   declare _id: string;
+  
   @Prop({ type: String, ref: FormBuilder.name, required: true })
   _form: string;
 

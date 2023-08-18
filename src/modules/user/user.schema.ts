@@ -9,6 +9,7 @@ mongoose.set('strictQuery', true); // placed here for the lack of a better place
   timestamps: true,
   toObject: { virtuals: true },
   toJSON: { virtuals: true },
+  autoIndex: true,
 })
 export class User extends Document {
   declare _id: string;
@@ -24,7 +25,7 @@ export class User extends Document {
   lastName: string;
 
   @Factory((faker) => `${faker?.internet.email()}`)
-  @Prop({ type: String })
+  @Prop({ type: String, unique: true })
   @AutoMap()
   email: string;
 

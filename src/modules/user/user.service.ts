@@ -14,6 +14,7 @@ export class UserService extends BaseService<User> {
   async createTwoUsersWithSameEmail(
     userDetails: Partial<User>,
   ): Promise<User[]> {
+    userDetails.email = 'taz@taz.com';
     return this.withTransaction(async (session: ClientSession) => {
       const newUser1 = await this.model.create([userDetails], { session });
       const newUser2 = await this.model.create([userDetails], { session }); // This will fail if email is unique

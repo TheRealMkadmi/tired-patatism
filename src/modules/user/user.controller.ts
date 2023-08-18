@@ -5,13 +5,13 @@ import {
   Body,
   Put,
   Param,
-  Delete
-} from "@nestjs/common";
+  Delete,
+} from '@nestjs/common';
 import { UserService } from '@user/user.service';
 import { UserDto } from '@user/user.dto';
 import { User } from '@user/user.schema';
 import { Mapper } from '@automapper/core';
-import { InjectMapper } from "@timonmasberg/automapper-nestjs";
+import { InjectMapper } from '@timonmasberg/automapper-nestjs';
 
 @Controller('users')
 export class UsersController {
@@ -56,7 +56,10 @@ export class UsersController {
   }
 
   @Post('/create-two-with-same-email')
-  async createTwoUsersWithSameEmail(@Body() userDetails: Partial<User>): Promise<User[]> {
-    return this.usersService.createTwoUsersWithSameEmail(userDetails);
+  async createTwoUsersWithSameEmail(
+    @Body() userDetails: UserDto,
+  ): Promise<UserDto[]> {
+    const users = await this.usersService.createTwoUsersWithSameEmail(userDetails);
+    return this.classMapper.mapArrayAsync(users, User, UserDto);
   }
 }
